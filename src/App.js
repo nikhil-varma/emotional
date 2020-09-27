@@ -1,8 +1,5 @@
 import React, { Component } from "react";
-import ReactionButton from "./components/ReactionView/ReactionButton";
-import ReactionView from "./components/ReactionView/ReactionView";
-import Emoji from "a11y-react-emoji";
-import SummaryView from "./components/SummaryView/SummaryView";
+import ReactionsView from "./components/ReactionView/ReactionView";
 import "./App.scss";
 class App extends Component {
   constructor(props) {
@@ -30,40 +27,15 @@ class App extends Component {
         this.setState({ users });
       });
   }
-  handleEmojiClick = (e) => {
-    const { callback } = this.props;
-    callback && callback();
-  };
   render() {
     const { reactions, userReactions, users } = this.state;
-    const popoverContentEmojis = (
-      <span className="flex justify-center">
-        {reactions.map((reaction) => {
-          const { emoji, id } = reaction;
-          return (
-            <span className="emoji-wrapper" key={id}>
-              {" "}
-              <Emoji
-                className="emoji"
-                symbol={emoji}
-                onClick={() => this.handleEmojiClick(id)}
-              />
-              <div className="info">{reaction.name}</div>
-            </span>
-          );
-        })}
-      </span>
-    );
+
     return (
       <div className="app-container">
-        <ReactionButton
-          popoverContent={popoverContentEmojis}
-          className="reaction-button"
-        />
-        <ReactionView reactions={reactions} />
-        <SummaryView
-          userReactions={userReactions}
+        <ReactionsView
           reactions={reactions}
+          className="reaction-button"
+          userReactions={userReactions}
           users={users}
         />
       </div>

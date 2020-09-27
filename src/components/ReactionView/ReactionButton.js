@@ -32,10 +32,10 @@ class ReactionButton extends Component {
           trigger="click"
           visible={this.state.visible}
           onVisibleChange={this.handleVisibleChange}
-          placement="top"
+          placement="bottom"
           overlayClassName={`${className}-popover`}
         >
-          <Button type="primary" icon={<LikeOutlined />}>
+          <Button type="primary" icon={<LikeOutlined />} {...this.props}>
             {content}
           </Button>
         </Popover>
