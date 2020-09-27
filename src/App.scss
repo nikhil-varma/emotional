@@ -16,13 +16,7 @@
     top: -30px;
     left: 2px;
   }
-  span.emoji {
-    cursor: pointer;
-    font-size: 1.6rem;
-    -webkit-transition: all 0.1s ease-in-out;
-    -moz-transition: all 0.1s ease-in-out;
-    -o-transition: all 0.1s ease-in-out;
-    transition: all 0.1s ease-in-out;
+  .emoji {
     &:hover {
       padding: 0;
       position: absolute;
@@ -31,11 +25,19 @@
       z-index: 1;
     }
   }
-  .info {
-    display: none;
-  }
 }
 
+.emoji {
+  cursor: pointer;
+  font-size: 1.6rem;
+  -webkit-transition: all 0.1s ease-in-out;
+  -moz-transition: all 0.1s ease-in-out;
+  -o-transition: all 0.1s ease-in-out;
+  transition: all 0.1s ease-in-out;
+}
+.info {
+  display: none;
+}
 .flex {
   display: flex;
 }
@@ -45,28 +47,30 @@
 }
 
 //override
-.ant-popover-inner-content {
-  padding: 5px 0;
-  width: 180px;
-  text-align: center;
-  height: 50px;
-  line-height: 1.5;
-  cursor: pointer;
-}
+.reaction-button-popover {
+  .ant-popover-inner-content {
+    padding: 5px 0;
+    width: 180px;
+    text-align: center;
+    height: 50px;
+    line-height: 1.5;
+    cursor: pointer;
+  }
 
-.ant-popover-inner {
-  background: #fbfbfb61;
-  padding: 0 10px;
-  height: 50px;
-  border-radius: 50px;
-  border: 1px solid #e6e6e6;
-  text-shadow: 0px 1px 0px rgba(255, 255, 255, 0.5);
-}
+  .ant-popover-inner {
+    background: #fbfbfb61;
+    padding: 0 10px;
+    height: 50px;
+    border-radius: 50px;
+    border: 1px solid #e6e6e6;
+    text-shadow: 0px 1px 0px rgba(255, 255, 255, 0.5);
+  }
 
-.ant-popover-arrow {
-  display: none;
-}
+  .ant-popover-arrow {
+    display: none;
+  }
 
-.ant-popover {
-  padding: 0;
+  .ant-popover {
+    padding: 0;
+  }
 }
