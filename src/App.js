@@ -23,18 +23,10 @@ class App extends Component {
   componentDidMount() {
     Promise.all([getReactions, getContentReactions(), getUsers]).then(
       ([reactions, contentReactions, users]) => {
-        const uniqueContentReactions = getUnique(
-          contentReactions,
-          "reaction_id"
-        );
         const uniqueContentIdList = getUnique(contentReactions, "content_id");
-        const relevantContentReactions = reactions.filter((reaction) =>
-          uniqueContentReactions.find(
-            (relevantReaction) => reaction.id === relevantReaction
-          )
-        );
+
         this.setState({
-          reactions: relevantContentReactions,
+          reactions,
           contentReactions,
           users,
           uniqueContentIdList,
@@ -64,21 +56,38 @@ class App extends Component {
     );
   };
   render() {
-    const { reactions, contentReactions, users, isLoading } = this.state;
+    const {
+      reactions,
+      contentReactions,
+      users,
+      isLoading,
+      uniqueContentIdList,
+    } = this.state;
 
     return (
       <div className="app-container">
-        <ReactionsView
-          reactions={reactions}
-          className="reaction-button"
-          contentReactions={contentReactions}
-          users={users}
-          isLoading={isLoading}
-          contentId
-          popoverButtonContentEmojis={this.getPopoverButtonContentEmojis({
-            reactions,
-          })}
-        />
+        {uniqueContentIdList.map((contentId) => (
+          <>
+            <ReactionsView
+              reactions={reactions.filter((reaction) =>
+                getUnique(
+                  contentReactions.filter((cR) => cR.content_id === contentId),
+                  "reaction_id"
+                ).find((relevantReaction) => reaction.id === relevantReaction)
+              )}
+              className="reaction-button"
+              contentReactions={contentReactions.filter(
+                (cR) => cR.content_id === contentId
+              )}
+              users={users}
+              isLoading={isLoading}
+              contentId
+              popoverButtonContentEmojis={this.getPopoverButtonContentEmojis({
+                reactions,
+              })}
+            />
+          </>
+        ))}
       </div>
     );
   }
