@@ -44,7 +44,7 @@ class ReactionsView extends Component {
           <Popover
             return
             content={this.getSummaryView()}
-            trigger="hover"
+            trigger="click"
             visible={this.state.visible}
             onVisibleChange={this.handleVisibleChange}
             placement="bottom"
