@@ -5,8 +5,8 @@ import { LikeOutlined } from "@ant-design/icons";
 // This class is used to show the emoji(s) and statistics
 class ReactionButton extends Component {
   static defaultProps = {
-    content: "Like",
-    Icon: <LikeOutlined />,
+    onPopoverClose: () => {},
+    onPopoverOpen: () => {},
   };
   state = {
     visible: false,
@@ -19,24 +19,26 @@ class ReactionButton extends Component {
   };
 
   handleVisibleChange = (visible) => {
+    const { onPopoverOpen, onPopoverClose } = this.props;
     this.setState({ visible });
+    !visible ? onPopoverClose() : onPopoverOpen();
   };
 
   render() {
-    const { content, popoverContent, className } = this.props;
+    const { content, className, type } = this.props;
     return (
       <span className={className}>
         <Popover
           return
-          content={popoverContent}
+          content={content}
           trigger="click"
           visible={this.state.visible}
           onVisibleChange={this.handleVisibleChange}
           placement="bottom"
           overlayClassName={`${className}-popover`}
         >
-          <Button type="primary" icon={<LikeOutlined />} {...this.props}>
-            {content}
+          <Button type={type} className={className} icon={<LikeOutlined />}>
+            Like
           </Button>
         </Popover>
       </span>

@@ -90,3 +90,13 @@
     padding: 0;
   }
 }
+
+.skeleton-loading {
+  padding: 10px;
+  border: 1px solid #eaeaea;
+  width: 100px;
+  color: #ccc;
+  .react-loading-skeleton {
+    width: 100%;
+  }
+}

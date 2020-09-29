@@ -1,10 +1,8 @@
 import React, { Component } from "react";
-import Emoji from "a11y-react-emoji";
 import ReactionButton from "./ReactionButton";
 import SummaryView from "..//SummaryView/SummaryView";
 import { Popover, Button } from "antd";
-
-// This class is used to show the emoji(s) and statistics
+import { withSkeleton } from "../../shared/withSkeleton";
 class ReactionsView extends Component {
   state = {
     visible: false,
@@ -21,60 +19,51 @@ class ReactionsView extends Component {
   };
 
   getSummaryView = () => {
-    const { users, userReactions, reactions } = this.props;
+    const { users, contentReactions, reactions } = this.props;
     return (
       <SummaryView
-        userReactions={userReactions}
+        contentReactions={contentReactions}
         reactions={reactions}
         users={users}
       />
     );
   };
 
+  handlePopoverOpen = () => {
+    console.log("open");
+  };
+  handlePopoverClose = () => {
+    console.log("closed");
+  };
+
   render() {
-    const { reactions } = this.props;
-    const popoverContentEmojis = (
-      <span className="flex justify-center">
-        {reactions.map((reaction) => {
-          const { emoji, id } = reaction;
-          return (
-            <span className="emoji-wrapper" key={id}>
-              {" "}
-              <Emoji
-                className="emoji"
-                symbol={emoji}
-                onClick={() => this.handleEmojiClick(id)}
-              />
-              <div className="info">{reaction.name}</div>
-            </span>
-          );
-        })}
-      </span>
-    );
+    const { contentReactions, popoverButtonContentEmojis } = this.props;
     return (
       <>
         <div className="stats-view">
           <Popover
             return
             content={this.getSummaryView()}
-            trigger="click"
+            trigger="hover"
             visible={this.state.visible}
             onVisibleChange={this.handleVisibleChange}
-            placement="top"
+            placement="bottom"
             overlayClassName="stats-view-popover"
           >
-            <Button type="link">see all</Button>
+            <Button type="link">{contentReactions.length} more</Button>
           </Popover>
         </div>
         <ReactionButton
-          popoverContent={popoverContentEmojis}
+          content={popoverButtonContentEmojis}
           className="reaction-button"
           type="link"
-          popOverplacement="bottom"
+          popOverplacement="top"
+          onPopoverOpen={this.handlePopoverOpen}
+          onPopoverClose={this.handlePopoverClose}
         />
       </>
     );
   }
 }
 
-export default ReactionsView;
+export default withSkeleton(ReactionsView);
