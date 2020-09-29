@@ -6,6 +6,7 @@ import {
   getUsers,
 } from "./shared/APIController";
 import Emoji from "a11y-react-emoji";
+import { getUnique } from "./shared/utils";
 
 import "./App.scss";
 class App extends Component {
@@ -16,15 +17,17 @@ class App extends Component {
       contentReactions: [],
       users: [],
       isLoading: true,
+      uniqueContentIdList: [],
     };
   }
   componentDidMount() {
     Promise.all([getReactions, getContentReactions(), getUsers]).then(
       ([reactions, contentReactions, users]) => {
-        const uniqueContentReactions = contentReactions
-          .map((i) => i.reaction_id)
-          .filter((val, idx, src) => src.indexOf(val) === idx);
-
+        const uniqueContentReactions = getUnique(
+          contentReactions,
+          "reaction_id"
+        );
+        const uniqueContentIdList = getUnique(contentReactions, "content_id");
         const relevantContentReactions = reactions.filter((reaction) =>
           uniqueContentReactions.find(
             (relevantReaction) => reaction.id === relevantReaction
@@ -34,6 +37,7 @@ class App extends Component {
           reactions: relevantContentReactions,
           contentReactions,
           users,
+          uniqueContentIdList,
           isLoading: false,
         });
       }
