@@ -8,9 +8,9 @@ import {
 } from "./shared/APIController";
 import Emoji from "a11y-react-emoji";
 import { getUnique } from "./shared/utils";
-
-import "./App.scss";
 import { Skeleton } from "antd";
+import { debounce } from "lodash";
+import "./App.scss";
 class App extends Component {
   constructor(props) {
     super(props);
@@ -26,7 +26,6 @@ class App extends Component {
     Promise.all([getReactions, getContentReactions(), getUsers]).then(
       ([reactions, contentReactions, users]) => {
         const uniqueContentIdList = getUnique(contentReactions, "content_id");
-
         this.setState({
           reactions,
           contentReactions,
@@ -39,7 +38,11 @@ class App extends Component {
   }
 
   handleEmojiClick = ({ reaction_id, content_id }) => {
-    postContentReactions({ reaction_id, content_id, user_id: 4 });
+    postContentReactions({ reaction_id, content_id, user_id: 4 }).then(
+      getContentReactions().then((contentReactions) =>
+        this.setState({ contentReactions })
+      )
+    );
   };
 
   getPopoverButtonContentEmojis = ({ reactions, content_id }) => {
@@ -54,7 +57,13 @@ class App extends Component {
                 className="emoji"
                 symbol={emoji}
                 onClick={() =>
-                  this.handleEmojiClick({ reaction_id: id, content_id })
+                  debounce(
+                    this.handleEmojiClick,
+                    250
+                  )({
+                    reaction_id: id,
+                    content_id,
+                  })
                 }
               />
               <div className="info">{reaction.name}</div>

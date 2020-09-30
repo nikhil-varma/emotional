@@ -80,6 +80,10 @@
 }
 
 .stats-view-popover {
+  .ant-popover-inner-content {
+    max-height: 330px;
+    overflow-y: scroll;
+  }
   .ant-popover-inner {
     padding: 0;
   }
