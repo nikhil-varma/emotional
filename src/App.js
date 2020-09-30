@@ -9,6 +9,7 @@ import Emoji from "a11y-react-emoji";
 import { getUnique } from "./shared/utils";
 
 import "./App.scss";
+import { Skeleton } from "antd";
 class App extends Component {
   constructor(props) {
     super(props);
@@ -35,6 +36,7 @@ class App extends Component {
       }
     );
   }
+
   getPopoverButtonContentEmojis = ({ reactions }) => {
     return (
       <span className="flex justify-center">
@@ -55,6 +57,7 @@ class App extends Component {
       </span>
     );
   };
+
   render() {
     const {
       reactions,
@@ -66,8 +69,9 @@ class App extends Component {
 
     return (
       <div className="app-container">
+        {isLoading ? <Skeleton /> : null}
         {uniqueContentIdList.map((contentId) => (
-          <>
+          <div key={contentId} className="content">
             <ReactionsView
               reactions={reactions.filter((reaction) =>
                 getUnique(
@@ -80,13 +84,12 @@ class App extends Component {
                 (cR) => cR.content_id === contentId
               )}
               users={users}
-              isLoading={isLoading}
               contentId
               popoverButtonContentEmojis={this.getPopoverButtonContentEmojis({
                 reactions,
               })}
             />
-          </>
+          </div>
         ))}
       </div>
     );

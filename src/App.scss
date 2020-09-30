@@ -16,7 +16,7 @@
   &:hover > .info {
     display: inline;
     position: absolute;
-    top: 45px;
+    top: -25px;
     left: 2px;
   }
   .emoji {
@@ -51,6 +51,7 @@
 
 //override
 .reaction-button-popover {
+  background-color: white;
   .ant-popover-inner-content {
     padding: 5px 0;
     width: 180px;
@@ -98,5 +99,27 @@
   color: #ccc;
   .react-loading-skeleton {
     width: 100%;
+  }
+}
+
+.summary-emojis > span {
+  font-size: 1rem;
+  padding-left: 2px;
+  &:last-child {
+    padding-right: 5px;
+  }
+}
+
+.content {
+  padding: 40px;
+}
+
+.user-list {
+  font-size: 0.8rem;
+  padding: 1px 0;
+  & + .more {
+    color: #1890ff;
+    font-style: italic;
+    font-size: 0.7rem;
   }
 }
