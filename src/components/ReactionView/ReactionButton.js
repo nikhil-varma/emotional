@@ -25,7 +25,7 @@ class ReactionButton extends Component {
   };
 
   render() {
-    const { content, className, type } = this.props;
+    const { content, className, type, popOverplacement } = this.props;
     return (
       <span className={className}>
         <Popover
@@ -34,7 +34,7 @@ class ReactionButton extends Component {
           trigger="click"
           visible={this.state.visible}
           onVisibleChange={this.handleVisibleChange}
-          placement="bottom"
+          placement={popOverplacement}
           overlayClassName={`${className}-popover`}
         >
           <Button type={type} className={className} icon={<LikeOutlined />}>

@@ -1,12 +1,11 @@
 @import "~antd/dist/antd.css";
 
 .app-container {
-  width: 300px;
   margin: 0 auto;
   position: absolute;
-  top: 20%;
+  top: 50%;
   left: 50%;
-  transform: translateXY(-50%);
+  transform: translate(-50%, -50%);
 }
 
 .emoji-wrapper {
@@ -115,7 +114,7 @@
 }
 
 .content {
-  padding: 40px;
+  margin: 100px;
 }
 
 .user-list {
