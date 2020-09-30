@@ -4,6 +4,7 @@ import {
   getReactions,
   getContentReactions,
   getUsers,
+  postContentReactions,
 } from "./shared/APIController";
 import Emoji from "a11y-react-emoji";
 import { getUnique } from "./shared/utils";
@@ -37,7 +38,11 @@ class App extends Component {
     );
   }
 
-  getPopoverButtonContentEmojis = ({ reactions }) => {
+  handleEmojiClick = ({ reaction_id, content_id }) => {
+    postContentReactions({ reaction_id, content_id, user_id: 4 });
+  };
+
+  getPopoverButtonContentEmojis = ({ reactions, content_id }) => {
     return (
       <span className="flex justify-center">
         {reactions.map((reaction) => {
@@ -48,7 +53,9 @@ class App extends Component {
               <Emoji
                 className="emoji"
                 symbol={emoji}
-                onClick={() => this.handleEmojiClick(id)}
+                onClick={() =>
+                  this.handleEmojiClick({ reaction_id: id, content_id })
+                }
               />
               <div className="info">{reaction.name}</div>
             </span>
@@ -84,9 +91,10 @@ class App extends Component {
                 (cR) => cR.content_id === contentId
               )}
               users={users}
-              contentId
+              contentId={contentId}
               popoverButtonContentEmojis={this.getPopoverButtonContentEmojis({
                 reactions,
+                content_id: contentId,
               })}
             />
           </div>
