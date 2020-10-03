@@ -44,4 +44,4 @@ See the section about [deployment](https://facebook.github.io/create-react-app/d
 ### Deployed URL:
 
 To view the site click the link below
-[Click here to view app](https://5f78a6566c0d5600079470e8--festive-allen-5a28d7.netlify.app/)
+[Click here to view app](https://festive-allen-5a28d7.netlify.app/)
