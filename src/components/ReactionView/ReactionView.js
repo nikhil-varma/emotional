@@ -1,8 +1,9 @@
 import React, { Component } from "react";
 import ReactionButton from "./ReactionButton";
 import SummaryView from "..//SummaryView/SummaryView";
-import { Popover, Button } from "antd";
 import Emoji from "a11y-react-emoji";
+import StatsView from "../StatsView/StatsView";
+
 class ReactionsView extends Component {
   state = {
     clicked: false,
@@ -72,38 +73,25 @@ class ReactionsView extends Component {
   };
 
   render() {
-    const { contentReactions, ...rest } = this.props;
+    const { contentReactions, isLoading, ...rest } = this.props;
     const { hovered, clicked } = this.state;
     return (
       <>
-        <div className="stats-view">
-          <Popover
-            style={{ width: 500 }}
-            content={this.getHoverSummaryView()}
-            trigger="hover"
-            visible={hovered}
-            onVisibleChange={this.handleHoverChange}
-          >
-            <Popover
-              return
-              content={this.getSummaryView()}
-              trigger="click"
-              visible={clicked}
-              onVisibleChange={this.handleClickChange}
-              placement="bottom"
-              overlayClassName="stats-view-popover"
-            >
-              <Button type="link">
-                {this.getEmojiView()}
-                {contentReactions.length}
-              </Button>
-            </Popover>
-          </Popover>
-        </div>
+        <StatsView
+          hovered={hovered}
+          clicked={clicked}
+          contentReactions={contentReactions}
+          handleClickChange={this.handleClickChange}
+          getSummaryView={this.getSummaryView}
+          getEmojiView={this.getEmojiView}
+          getHoverSummaryView={this.getHoverSummaryView}
+          handleHoverChange={this.handleHoverChange}
+          isLoading={isLoading}
+        />
         <ReactionButton
           className="reaction-button"
           type="link"
-          popOverplacement="top"
+          popOverplacement="bottom"
           onPopoverOpen={this.handlePopoverOpen}
           onPopoverClose={this.handlePopoverClose}
           {...rest}

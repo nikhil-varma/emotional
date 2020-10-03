@@ -15,7 +15,7 @@
   &:hover > .info {
     display: inline;
     position: absolute;
-    top: -25px;
+    top: 45px;
     left: 2px;
   }
   .emoji {
@@ -97,12 +97,12 @@
 
 .skeleton-loading {
   padding: 10px;
-  border: 1px solid #eaeaea;
-  width: 100px;
-  color: #ccc;
-  .react-loading-skeleton {
-    width: 100%;
-  }
+  // border: 1px solid #eaeaea;
+  // width: 100px;
+  // color: #ccc;
+  // .react-loading-skeleton {
+  //   width: 100%;
+  // }
 }
 
 .summary-emojis > span {

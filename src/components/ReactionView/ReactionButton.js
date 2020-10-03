@@ -2,8 +2,8 @@ import React, { Component } from "react";
 import { Popover, Button } from "antd";
 import Emoji from "a11y-react-emoji";
 import { LikeOutlined } from "@ant-design/icons";
-
-// This class is used to show the emoji(s) and statistics
+import { withSkeleton } from "../../shared/withSkeleton";
+import Skeleton from "react-loading-skeleton";
 class ReactionButton extends Component {
   static defaultProps = {
     onPopoverClose: () => {},
@@ -32,6 +32,8 @@ class ReactionButton extends Component {
   };
 
   getPopoverButtonContentEmojis = ({ reactions, content_id }) => {
+    const { isLoading } = this.props;
+    if (isLoading) return <Skeleton />;
     return (
       <span className="flex justify-center">
         {reactions.map((reaction) => {
@@ -88,4 +90,4 @@ class ReactionButton extends Component {
   }
 }
 
-export default ReactionButton;
+export default withSkeleton(ReactionButton);
