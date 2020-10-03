@@ -27,42 +27,16 @@ Your app is ready to be deployed!
 
 See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-### `yarn eject`
+## Known issues
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `yarn build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+- If the user list for a reaction is a lot, the scrolling affects the whole popover content and does not keep the reaction tab header static
+- Needs better error handling but could not implement it due to lack of time (8 hours cap)
+- The performance of the architecture can be improved by cutting out the following few aspects
+  - Remove redundant popover logic
+  - Remove unnecessary loops to compare and filter `content_reactions` with `users`. Although this will work on limited scope so it’s not a massive loss
+- The emoji hovers aren’t completely smooth due to the browser calculation the padding and font-size and probably trying to adjust the position (Speculation as of now. Will need confirmation)
+- The design system can definitely be improved.
+- Some architectural decisions were made to avoid multiple server calls. For ex:
+  - The post and get calls are made inside App.js and then the data is posted down to the child components. This will be effective for one major scenario, consider if we were to shoot requests on reaction tab clicks in the <SummaryView /> to get updated data after someone reacts to a content, it could have proven costly since we could not avoid those unnecessary calls. Rather the design allows to shoot a post call and then immediately get it via the server to ensure that for each post there is only one request made and the data loads immediately in the summary view without any delays giving good UX
+- Few more micro-optimisation can be made in order to improve performance
+- When an API call is under progress to post, both the buttons show loading. This is because it is using the same `isLoading` variable.
