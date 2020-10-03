@@ -28,7 +28,7 @@ You will also see any lint errors in the console.
 
 ### Deployed URL:
 
-To view the site click the link below
+To view the demo click the link below
 [Click here to view app](https://festive-allen-5a28d7.netlify.app/)
 
 ![](Demo.gif)
