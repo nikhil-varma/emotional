@@ -45,3 +45,5 @@ See the section about [deployment](https://facebook.github.io/create-react-app/d
 
 To view the site click the link below
 [Click here to view app](https://festive-allen-5a28d7.netlify.app/)
+
+![](Demo.gif)
