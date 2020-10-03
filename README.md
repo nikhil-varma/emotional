@@ -1,4 +1,4 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+An app trying to replicate the general and liked reaction button from existing social media apps. 
 
 ## Available Scripts
 
