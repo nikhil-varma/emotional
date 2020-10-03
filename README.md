@@ -40,3 +40,8 @@ See the section about [deployment](https://facebook.github.io/create-react-app/d
   - The post and get calls are made inside App.js and then the data is posted down to the child components. This will be effective for one major scenario, consider if we were to shoot requests on reaction tab clicks in the <SummaryView /> to get updated data after someone reacts to a content, it could have proven costly since we could not avoid those unnecessary calls. Rather the design allows to shoot a post call and then immediately get it via the server to ensure that for each post there is only one request made and the data loads immediately in the summary view without any delays giving good UX
 - Few more micro-optimisation can be made in order to improve performance
 - When an API call is under progress to post, both the buttons show loading. This is because it is using the same `isLoading` variable.
+
+### Deployed URL:
+
+To view the site click the link below
+[Click here to view app](https://5f78a6566c0d5600079470e8--festive-allen-5a28d7.netlify.app/)
