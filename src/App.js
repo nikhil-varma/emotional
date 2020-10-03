@@ -6,10 +6,8 @@ import {
   getUsers,
   postContentReactions,
 } from "./shared/APIController";
-import Emoji from "a11y-react-emoji";
 import { getUnique } from "./shared/utils";
 import { Skeleton } from "antd";
-import { debounce } from "lodash";
 import "./App.scss";
 class App extends Component {
   constructor(props) {
@@ -39,38 +37,20 @@ class App extends Component {
 
   handleEmojiClick = ({ reaction_id, content_id }) => {
     postContentReactions({ reaction_id, content_id, user_id: 4 }).then(
-      getContentReactions().then((contentReactions) =>
-        this.setState({ contentReactions })
-      )
-    );
-  };
-
-  getPopoverButtonContentEmojis = ({ reactions, content_id }) => {
-    return (
-      <span className="flex justify-center">
-        {reactions.map((reaction) => {
-          const { emoji, id } = reaction;
-          return (
-            <span className="emoji-wrapper" key={id}>
-              {" "}
-              <Emoji
-                className="emoji"
-                symbol={emoji}
-                onClick={() =>
-                  debounce(
-                    this.handleEmojiClick,
-                    250
-                  )({
-                    reaction_id: id,
-                    content_id,
-                  })
-                }
-              />
-              <div className="info">{reaction.name}</div>
-            </span>
-          );
-        })}
-      </span>
+      getContentReactions().then((cr) => {
+        const uniqueContentIdList = getUnique(cr, "content_id");
+        const totalReactions = this.state.contentReactions;
+        const contentReactions = [
+          ...totalReactions,
+          {
+            id: totalReactions.length + 1,
+            reaction_id,
+            content_id,
+            user_id: 4,
+          },
+        ];
+        this.setState({ contentReactions, uniqueContentIdList });
+      })
     );
   };
 
@@ -101,10 +81,7 @@ class App extends Component {
               )}
               users={users}
               contentId={contentId}
-              popoverButtonContentEmojis={this.getPopoverButtonContentEmojis({
-                reactions,
-                content_id: contentId,
-              })}
+              handleEmojiClick={this.handleEmojiClick}
             />
           </div>
         ))}

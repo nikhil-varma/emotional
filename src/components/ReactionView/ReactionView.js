@@ -72,11 +72,7 @@ class ReactionsView extends Component {
   };
 
   render() {
-    const {
-      contentReactions,
-      popoverButtonContentEmojis,
-      ...rest
-    } = this.props;
+    const { contentReactions, ...rest } = this.props;
     const { hovered, clicked } = this.state;
     return (
       <>
@@ -105,7 +101,6 @@ class ReactionsView extends Component {
           </Popover>
         </div>
         <ReactionButton
-          content={popoverButtonContentEmojis}
           className="reaction-button"
           type="link"
           popOverplacement="top"
